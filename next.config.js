@@ -1,8 +1,15 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
-  experimental: {
-    appDir: true,
-  },
-}
+const withLess = require('next-with-less');
 
-module.exports = nextConfig
+const nextConfig = withLess({
+    reactStrictMode: false,
+    lessLoaderOptions: {},
+    experimental: {
+        appDir: true
+    },
+    images: {
+        domains: ['cdn.staticaly.com', 'jsd.cdn.zzko.cn', 'localhost']
+    }
+});
+
+module.exports = nextConfig;
