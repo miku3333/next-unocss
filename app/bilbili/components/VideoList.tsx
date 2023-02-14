@@ -22,7 +22,7 @@ const VideoList = ({ videos }: IVideoListProps) => {
                             {danmu}
                         </div>
                     </div>
-                    <div class='eiillpss2 mt6 fs12 lh16 #212121'>{title}</div>
+                    <div class='ellipsis2 mt6 fs12 lh16 #212121'>{title}</div>
                 </div>
             ))}
         </div>

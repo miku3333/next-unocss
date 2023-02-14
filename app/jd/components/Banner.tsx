@@ -14,11 +14,11 @@ const Banner = ({ imgs }: IBannerProps) => {
         const interval = setInterval(() => {
             let next = (activeRef.current += 1);
             if (next === imgs.length + 1) {
-                bannerList.current?.children[0].scrollIntoView();
+                // bannerList.current?.children[0].scrollIntoView();
                 next = activeRef.current = 1;
             }
             setActive(next);
-            bannerList.current?.children[next].scrollIntoView({ behavior: 'smooth' });
+            // bannerList.current?.children[next].scrollIntoView({ behavior: 'smooth' });
         }, 3000);
         return () => {
             clearInterval(interval);

@@ -16,12 +16,15 @@ export interface IJDRes {
         title: string;
         value: number;
         lowDay?: number;
-        jdLogistics?: boolean;
         remarkCount?: number;
         favorableRate?: number;
+
+        jdLogistics?: boolean;
         selfSupport: boolean;
-        seckill?: boolean;
+
         jdSuperMarket?: boolean;
+        seckill?: boolean;
+
         fullDiscount?: [number, number];
         numberDiscount?: [number, number];
     }[];

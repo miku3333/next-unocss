@@ -7,7 +7,7 @@ interface ITitleBarProps {
 
 const TitleBar = ({ search }: ITitleBarProps) => {
     return (
-        <div class='pos t0 flex h44 acenter fs14 bg#e43130'>
+        <div class='pos t0 flex h44 acenter fs14 bg#e43130 z1'>
             <div class='w50 h100% por'>
                 <Image class='center' alt='' width={18} height={20} src='/icon/hamburger.svg' />
             </div>

@@ -67,7 +67,7 @@ export default defineConfig({
             }
         ],
         [
-            /^(h|w|r|l|t|b)(-?\d+)(px|%|vh|vw)?(\S+)?$/,
+            /^(h|w|r|l|t|b)(-?\d+)(px|%|vh|vw|em)?(\S+)?$/,
             ([, k, v, u = 'px', e]) => {
                 const key = keyMap[k];
                 if (!e) {
@@ -77,12 +77,19 @@ export default defineConfig({
                 }
             }
         ],
+        [
+            /^(max|min)(h|w)(\d+)(px|%|vh|vw)?$/,
+            ([, m, k, v, u = 'px']) => {
+                const key = `${m}-${keyMap[k]}`;
+                return { [key]: `${v}${u}` };
+            }
+        ],
         [/^po(r|a|f|s)$/, ([, v]) => ({ position: positionMap[v] })],
         [
             /^auto(x|y)?$/,
             ([, p], { rawSelector }) => {
                 const selector = e(rawSelector);
-                return `${selector}{overflow${p ? `-${p}` : ''}:auto;}\n${selector}::-webkit-scrollbar{display:none;}`;
+                return `${selector}{overflow${p ? `-${p}` : ''}:auto;${p === 'x' ? 'white-space:nowrap;' : ''}}\n${selector}::-webkit-scrollbar{display:none;}`;
             }
         ],
         [/^z(-?\d+)?$/, ([, v = '1']) => ({ 'z-index': v })],
@@ -94,14 +101,17 @@ export default defineConfig({
         [/^trans-?(\w+)?-?(\d*\.?\d+)?$/, ([, v, t = '.3']) => ({ transition: `${v || 'all'} ${t}s` })],
         [/^hidden(x|y)?$/, ([, p]) => ({ [`overflow${p ? `-${p}` : ''}`]: 'hidden' })],
         [/^j(\S+)$/, ([, v]) => ({ 'justify-content': v })],
+        [/^vertical-(\S+)$/, ([, v]) => ({ 'vertical-align': v })],
         ['nowrap', { 'white-space': 'nowrap' }],
         ['flex', { display: 'flex' }],
         ['flexc', { display: 'flex', 'flex-direction': 'column' }],
+        ['column', { 'flex-direction': 'column' }],
         ['wrap', { 'flex-wrap': 'wrap' }],
         ['fRoot', { transform: 'translateZ(0)' }],
         ['inline', { display: 'inline' }],
         ['block', { display: 'block' }],
         ['inlineBlock', { display: 'inline-block' }],
+        ['inlineFlex', { display: 'inline-flex' }],
         ['flex1', { flex: 1 }],
         ['acenter', { 'align-items': 'center' }],
         ['tcenter', { 'text-align': 'center' }],
@@ -134,7 +144,7 @@ export default defineConfig({
             }
         ],
         [
-            /^eiillpss(\d)?$/,
+            /^ellipsis(\d)?$/,
             ([, v]) => {
                 const css: IObject = { overflow: 'hidden', 'white-space': 'nowrap', 'text-overflow': 'ellipsis' };
                 if (v) {
